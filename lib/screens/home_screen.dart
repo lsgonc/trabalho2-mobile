@@ -46,10 +46,6 @@ class HomeScreen extends StatelessWidget {
               height: 56,
               child: ElevatedButton(
                 onPressed: () => _navigate(context, '/analisar_emocao'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Colors.white,
-                ),
                 child: const Text(
                   'Analisar Emoção',
                   style: TextStyle(fontSize: 16),
@@ -65,10 +61,6 @@ class HomeScreen extends StatelessWidget {
               height: 56,
               child: ElevatedButton(
                 onPressed: () => _navigate(context, '/dicas_estudo'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Colors.white,
-                ),
                 child: const Text(
                   'Dicas de Estudo',
                   style: TextStyle(fontSize: 16),
@@ -84,10 +76,6 @@ class HomeScreen extends StatelessWidget {
               height: 56,
               child: ElevatedButton(
                 onPressed: () => _navigate(context, '/tecnicas_respiracao'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Colors.white,
-                ),
                 child: const Text(
                   'Técnicas de Respiração',
                   style: TextStyle(fontSize: 16),
