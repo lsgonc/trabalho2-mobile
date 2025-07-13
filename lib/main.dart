@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/database/database.dart';
 import 'package:mobile/repositories/joke_repository.dart';
+import 'package:mobile/screens/analisar_emocao_screen.dart';
+import 'package:mobile/screens/dicas_estudo_screen.dart';
+import 'package:mobile/screens/home_screen.dart';
+import 'package:mobile/screens/joke_history_screen.dart';
 import 'package:mobile/screens/joke_screen.dart';
+import 'package:mobile/screens/tecnicas_respiracao_screen.dart';
 import 'package:mobile/services/joke_api_service.dart';
+import 'package:mobile/view_models/analisar_emocao_view_model.dart';
 import 'package:mobile/view_models/joke_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -19,8 +25,15 @@ void main() async {
   final repository = JokeRepository(api: api, jokeDao: jokeDao);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => JokeViewModel(repository: repository),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => JokeViewModel(repository: repository),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AnalisarEmocaoViewModel(),
+        ),
+      ],
       child: const MyApp(),
     ),
   );
@@ -37,20 +50,20 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: JokeScreen(
-        onNavigateToHistory: () {
-          // TODO: Navegar para histórico
-        },
-        onBackClick: () {
-          // TODO: Ação de voltar
-        },
-        onShareClick: () {
-          // TODO: Compartilhar piada
-        },
-        onTechniquesClick: () {
-          // TODO: Abrir técnicas para se sentir melhor
-        },
-      ),
+      home: HomeScreen(),
+      routes: {
+        '/joke_screen': (context) => JokeScreen(
+          onNavigateToHistory: () => { Navigator.pushNamed(context, '/joke_history') },
+          onBackClick: () => { Navigator.pop(context) },
+          onShareClick: () => { Navigator.pushNamed(context, '/') },
+          onTechniquesClick: () => { Navigator.pushNamed(context, '/tecnicas_respiracao') },
+        ), 
+        '/dicas_estudo': (context) => DicasEstudoScreen(),
+        '/tecnicas_respiracao': (context) => TecnicasRespiracaoScreen(),
+        '/analisar_emocao': (context) => AnalisarEmocaoScreen(
+          onBack: () => { Navigator.pop(context)}, onAnalysisComplete: () => { Navigator.pushNamed(context, '/joke_screen')}),
+        '/joke_history': (context) => JokeHistoryScreen(onBackClick: () => {Navigator.pop(context)})
+      },
     );
   }
 }
