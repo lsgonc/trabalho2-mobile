@@ -12,12 +12,12 @@ class JokeScreen extends StatefulWidget {
   final VoidCallback onTechniquesClick;
 
   const JokeScreen({
-    Key? key,
+    super.key,
     required this.onNavigateToHistory,
     required this.onBackClick,
     required this.onShareClick,
     required this.onTechniquesClick,
-  }) : super(key: key);
+  });
 
   @override
   State<JokeScreen> createState() => _JokeScreenState();
