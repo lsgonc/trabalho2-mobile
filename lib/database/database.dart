@@ -34,7 +34,7 @@ class AppDatabase {
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE jokes (
-        id TEXT PRIMARY KEY,
+        id INTEGER PRIMARY KEY,
         type TEXT,
         setup TEXT,
         punchline TEXT,
